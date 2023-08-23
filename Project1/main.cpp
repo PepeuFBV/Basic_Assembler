@@ -5,11 +5,7 @@
 
 using namespace std;
 
-string verificaRegistrador(void); //retorna registrador em binário
-void organizaRegistradores(string opcode, string function, string rd, string rs, string rt); //recebe binario em string e junta no arquivo destino
 
-//passar lendo a primeira vez encontrando os labels (com : no final)
-//ler uma segunda vez apenas o código e se label for referenciado olhar a array e definir
 
 int main() {
 
@@ -42,6 +38,7 @@ int main() {
         return 1;
     }
 
+    char tabulacao = '\t';
     while (getline(file, linhaAtual)) { //loop que lê de linha em linha
 
         size_t indice = linhaAtual.find(':'); //encontra indice de ':'
@@ -49,9 +46,15 @@ int main() {
             //cria uma nova substring cortando a partir do fim do label até o final da string completa
             linhaAtual = linhaAtual.substr(indice+2, linhaAtual.length());
         }
-        cout << linhaAtual;
-        //temos que ver ainda a questão de remover os /t das strings após a remoção dos labels
-        //em sequencia ver qual é a instrução, seguindo para um switch para cada tipo de instrução
+        //remove as ocorrencias de '/t'
+        linhaAtual.erase(remove(linhaAtual.begin(), linhaAtual.end(), tabulacao), linhaAtual.end());
+        
+        //linhaAtual contém as linhas sem os labels e sem as tabulações
+        //Fazer switch que encontra cada tipo de instrução e atribui código diferente a cada e lê os valores em sequência
+        //de maneira diferente
+
+
+        
     }
     
 
