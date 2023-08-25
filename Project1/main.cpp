@@ -2,10 +2,12 @@
 #include <unordered_map>
 #include <fstream>
 #include <string>
+#include "functions.h"
 
 using namespace std;
 
-
+void montandoBinario(string linha, unordered_map<string, int> labels);
+void montandoHexadecimal();
 
 int main() {
 
@@ -48,19 +50,45 @@ int main() {
         }
         //remove as ocorrencias de '/t'
         linhaAtual.erase(remove(linhaAtual.begin(), linhaAtual.end(), tabulacao), linhaAtual.end());
-        
-        //linhaAtual contém as linhas sem os labels e sem as tabulações
-        //Fazer switch que encontra cada tipo de instrução e atribui código diferente a cada e lê os valores em sequência
-        //de maneira diferente
 
+        montandoBinario(linhaAtual, labels); //coloca o binário no outro arquivo
+        montandoHexadecimal(); //coloca o hexadecimal no outro arquivo, a patir do arquivo binário criado
 
-        
     }
-    
-
-
-
-
 
     return 0;
+}
+
+
+void montandoBinario(string linha, unordered_map<string, int> labels) { //consertar
+    switch (true) {
+        case (linha.find("add") != string::npos):
+           binAdd();
+           break;
+        case (linha.find("sub") != string::npos):
+            binSub();
+            break;
+        case (linha.find("mult") != string::npos):
+            binMult();
+            break;
+        case (linha.find("div") != string::npos):
+            binDiv();
+            break;
+        case (linha.find("jmp") != string::npos):
+            binJmp();
+            break;
+
+
+        case default
+            break;
+    }
+}
+
+
+
+
+}
+
+void montandoHexadecimal() {
+
 }
