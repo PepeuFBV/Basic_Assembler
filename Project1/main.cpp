@@ -6,9 +6,6 @@
 
 using namespace std;
 
-void montandoBinario(string linha, unordered_map<string, int> labels);
-void montandoHexadecimal();
-
 int main() {
 
     ifstream file("entrada.asm");
@@ -18,7 +15,7 @@ int main() {
     }
 
     string linhaAtual;
-    unordered_map<string, int> labels;
+    unordered_map<string, int> labels; //map que guarda os labels e suas linhas
     int nLinha = 0;
 
     while (getline(file, linhaAtual)) { //loop que lê de linha em linha
@@ -31,6 +28,11 @@ int main() {
         }
 
     }
+    for (auto x : labels) {
+        cout << x.first << " " <<
+            x.second << endl;
+    }
+
     file.close(); //le o arquivo pela primeira vez pegando os labels
 
 
@@ -51,44 +53,10 @@ int main() {
         //remove as ocorrencias de '/t'
         linhaAtual.erase(remove(linhaAtual.begin(), linhaAtual.end(), tabulacao), linhaAtual.end());
 
-        montandoBinario(linhaAtual, labels); //coloca o binário no outro arquivo
-        montandoHexadecimal(); //coloca o hexadecimal no outro arquivo, a patir do arquivo binário criado
+        //montandoBinario(linhaAtual, labels); //coloca o binário no outro arquivo
+       // montandoHexadecimal(); //coloca o hexadecimal no outro arquivo, a patir do arquivo binário criado
 
     }
 
     return 0;
-}
-
-
-void montandoBinario(string linha, unordered_map<string, int> labels) { //consertar
-    switch (true) {
-        case (linha.find("add") != string::npos):
-           binAdd();
-           break;
-        case (linha.find("sub") != string::npos):
-            binSub();
-            break;
-        case (linha.find("mult") != string::npos):
-            binMult();
-            break;
-        case (linha.find("div") != string::npos):
-            binDiv();
-            break;
-        case (linha.find("jmp") != string::npos):
-            binJmp();
-            break;
-
-
-        case default
-            break;
-    }
-}
-
-
-
-
-}
-
-void montandoHexadecimal() {
-
 }
