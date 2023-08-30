@@ -2,5 +2,5 @@
 
 using namespace std;
 
-string decimalParaBin(int decimal);
-string registradorParaBin(string registrador);
+string decimalParaBin(int decimal, int tam);
+string registradorParaBin(string registrador, int tam);

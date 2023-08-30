@@ -9,6 +9,8 @@ using namespace std;
 
 //TODO
 //possibilidade de correção para linhasSemLabel não terminarem em \n
+//checar se há diferença entre addi e addiu
+//alterar registradorParaBin
 
 
 int main() {
@@ -106,7 +108,7 @@ int main() {
         }
         
         bin << binario << '\n'; //escreve no arquivo binário e pula uma linha
-        hex << hexadecimal << '\n'; //escreve no arquivo hexadecimal e pula uma linha
+        //hex << hexadecimal << '\n'; //escreve no arquivo hexadecimal e pula uma linha
 
         
         nLinha++;

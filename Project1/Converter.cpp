@@ -4,15 +4,16 @@
 
 using namespace std;
 
-string decimalParaBin(int numero) {
+string decimalParaBin(int numero, int tam) {
 	string binario;
-	if (numero == 0) {
-		return "00000";
-	}
-	else if (numero > 0) {
+	
+	if (numero >= 0) {
 		while (numero > 0) {
 				binario = to_string(numero % 2) + binario;
 				numero /= 2;
+		}
+		while (binario.length() < tam) {
+			binario = "0" + binario;
 		}
 	}
 	else { //número negativo
@@ -22,7 +23,7 @@ string decimalParaBin(int numero) {
 			else binario = "0" + binario;
 			numero /= 2;
 		}
-		while (binario.length() <= 16) {
+		while (binario.length() < tam) {
 			binario = "1" + binario;
 		}
 	}
@@ -30,7 +31,7 @@ string decimalParaBin(int numero) {
 	return binario;
 }
 
-string registradorParaBin(string registrador) {
+string registradorParaBin(string registrador, int tam) {
 	int equivalente;
 	if (registrador.compare("zero") == 0) {
 		equivalente = 0;
@@ -145,6 +146,6 @@ string registradorParaBin(string registrador) {
 		cerr << "Registrador não existe!";
 		exit(0);
 	}
-	return decimalParaBin(equivalente);
+	return decimalParaBin(equivalente,tam);
 
 }
