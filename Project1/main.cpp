@@ -6,6 +6,11 @@
 
 using namespace std;
 
+
+//TODO
+//possibilidade de correção para linhasSemLabel não terminarem em \n
+
+
 int main() {
 
     string operacao;
