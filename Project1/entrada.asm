@@ -1,3 +1,4 @@
-L1: add $31, $15, $18
-	addi $10, $2, 3
-L2: beq $2, 3, L1
+L1: add $t0, $s1, $s2
+L2: addi $t1, $s3, 7
+	beq $t0, $t1, L1
+	j L2
