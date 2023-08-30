@@ -32,6 +32,13 @@ int main() {
 
     file.close(); //le o arquivo pela primeira vez pegando os labels
 
+    //criando o arquivo binário
+    cout << "Qual o nome do seu projeto?";
+    string nomeProjeto;
+    cin >> nomeProjeto;
+    ofstream bin(nomeProjeto + ".bin"); //cria um arquivo binário com o nome do projeto
+    ofstream hex(nomeProjeto + ".hex"); //cria um arquivo hexadecimal com o nome do projeto
+
 
     file.open("entrada.asm"); //abre o arquivo pela segunda vez para ai realmente transformar em binário
     if (!file.is_open() && !file.bad()) {
@@ -93,10 +100,16 @@ int main() {
 
         }
         
+        bin << binario << '\n'; //escreve no arquivo binário e pula uma linha
+        hex << hexadecimal << '\n'; //escreve no arquivo hexadecimal e pula uma linha
+
         
         nLinha++;
     }
 
+    file.close(); //fecha o arquivo de entrada
+    bin.close(); //fecha o arquivo binário
+    hex.close(); //fecha o arquivo hexadecimal
 
     return 0;
 }
