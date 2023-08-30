@@ -39,7 +39,7 @@ int main() {
         return 1;
     }
 
-    char tabulacao = '\t';
+    char tabulacao = '\t'; nLinha = 0;
     while (getline(file, linhaAtual)) { //loop que lê de linha em linha
 
         size_t indice = linhaAtual.find(':'); //encontra indice de ':'
@@ -51,8 +51,6 @@ int main() {
         linhaAtual.erase(remove(linhaAtual.begin(), linhaAtual.end(), tabulacao), linhaAtual.end());
 
 
-        size_t pos = linhaAtual.find(' '); // ler a string até o espaço
-
         indice = linhaAtual.find(' '); //encontra indice de ' '    
         string comando = linhaAtual.substr(0, indice); //obtem apenas o comando da linha atual
 
@@ -61,12 +59,11 @@ int main() {
         string linhaSemComando = linhaAtual.substr(indice, linhaAtual.length());
         //cria uma nova substring cortando a partir do fim do comando até o final da string completa
   
-       
 
         //comparando o comando atual com os possíveis comandos para chamar respectivas funções
         string binario;
         if (comando.compare("beq") == 0) { 
-            binario = beq(linhaSemComando, labels);
+            binario = beq(linhaSemComando, labels, nLinha);
         }
         else if (comando.compare("bne") == 0){
             //bne(linhaSemComando, labels);
@@ -97,10 +94,9 @@ int main() {
         }
         
         
-
+        nLinha++;
     }
 
 
     return 0;
 }
-

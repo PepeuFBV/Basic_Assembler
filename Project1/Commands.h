@@ -3,4 +3,5 @@
 
 using namespace std;
 
-string beq(string linhaAtual, unordered_map<string, int> labels);
+string add(string linhaAtual);
+string beq(string linhaAtual, unordered_map<string, int> labels, int nLinha);

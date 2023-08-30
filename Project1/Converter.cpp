@@ -5,14 +5,28 @@
 using namespace std;
 
 string decimalParaBin(int numero) {
-	string binario = "";
+	string binario;
 	if (numero == 0) {
 		return "00000";
 	}
-	while (numero > 0) {
-		binario = to_string(numero % 2) + binario;
-		numero /= 2;
+	else if (numero > 0) {
+		while (numero > 0) {
+				binario = to_string(numero % 2) + binario;
+				numero /= 2;
+		}
 	}
+	else { //número negativo
+		numero = numero * -1;
+		while (numero > 0) {
+			if (numero % 2 == 0) binario = "1" + binario;
+			else binario = "0" + binario;
+			numero /= 2;
+		}
+		while (binario.length() <= 16) {
+			binario = "1" + binario;
+		}
+	}
+	
 	return binario;
 }
 
@@ -128,7 +142,8 @@ string registradorParaBin(string registrador) {
 		equivalente = 31;
 	}
 	else {
-		equivalente = -1;
+		cerr << "Registrador não existe!";
+		exit(0);
 	}
 	return decimalParaBin(equivalente);
 
