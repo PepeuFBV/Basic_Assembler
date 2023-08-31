@@ -3,14 +3,16 @@
 #include <fstream>
 #include <string>
 #include "Commands.h"
+#include "Converter.h"
 
 using namespace std;
 
 
-//TODO
+//DONE
+// commands.cpp - Familia do I e do J completas
+// 
 //possibilidade de correção para linhasSemLabel não terminarem em \n
 //checar se há diferença entre addi e addiu
-//alterar registradorParaBin
 
 
 int main() {
@@ -45,6 +47,7 @@ int main() {
     cin >> nomeProjeto;
     ofstream bin(nomeProjeto + ".bin"); //cria um arquivo binário com o nome do projeto
     ofstream hex(nomeProjeto + ".hex"); //cria um arquivo hexadecimal com o nome do projeto
+    hex << "v2.0 raw" << '\n';
 
 
     file.open("entrada.asm"); //abre o arquivo pela segunda vez para ai realmente transformar em binário
@@ -75,48 +78,26 @@ int main() {
   
 
         //comparando o comando atual com os possíveis comandos para chamar respectivas funções
-        string binario;
-        if (comando.compare("beq") == 0) { 
-            binario = beq(linhaSemComando, labels, nLinha);
-        }
-        else if (comando.compare("bne") == 0){
-            //bne(linhaSemComando, labels);
-        }
-        else if (comando.compare("addi") == 0) {
+        string binario, hexadecimal;
+        binario = comandoAtual(linhaSemComando, comando, labels, nLinha);
+        hexadecimal = binarioParaHexadecimal(binario);
 
+        bin << binario << '\n';
+        hex << hexadecimal;
+        if ((nLinha+1) % 4 == 0) {
+            hex << endl;
         }
-        else if (comando.compare("addiu") == 0) {
-
-        }
-        else if (comando.compare("slti") == 0) {
-
-        }
-        else if (comando.compare("andi") == 0) {
-
-        }
-        else if (comando.compare("ori") == 0) {
-
-        }
-        else if (comando.compare("lui") == 0) {
-
-        }
-        else if (comando.compare("lw") == 0) {
-
-        }
-        else if (comando.compare("sw") == 0) {
-
+        else {
+            hex << " ";
         }
         
-        bin << binario << '\n'; //escreve no arquivo binário e pula uma linha
-        //hex << hexadecimal << '\n'; //escreve no arquivo hexadecimal e pula uma linha
-
         
         nLinha++;
     }
 
-    file.close(); //fecha o arquivo de entrada
-    bin.close(); //fecha o arquivo binário
-    hex.close(); //fecha o arquivo hexadecimal
+    file.close();
+    bin.close();
+    hex.close();
 
     return 0;
 }

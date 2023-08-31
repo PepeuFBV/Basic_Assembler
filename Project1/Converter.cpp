@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <map>
 #include "Converter.h"
 
 using namespace std;
@@ -9,7 +10,7 @@ string decimalParaBin(int numero, int tam) {
 	
 	if (numero >= 0) {
 		while (numero > 0) {
-				binario = to_string(numero % 2) + binario;
+				binario = to_string(numero % 2) + binario; 
 				numero /= 2;
 		}
 		while (binario.length() < tam) {
@@ -148,4 +149,25 @@ string registradorParaBin(string registrador, int tam) {
 	}
 	return decimalParaBin(equivalente,tam);
 
+}
+
+string binarioParaHexadecimal(string binario) { //tam = 32
+	string hexadecimal;
+	for (int i = 0; i < 32; i += 4) {
+		char seq4[4];
+		for (int j = 0; j < 4; j++) {
+			seq4[j] = binario[i+j];
+		}
+
+		map<string, char> hexMap = {
+		{"0000", '0'}, {"0001", '1'}, {"0010", '2'}, {"0011", '3'},
+		{"0100", '4'}, {"0101", '5'}, {"0110", '6'}, {"0111", '7'},
+		{"1000", '8'}, {"1001", '9'}, {"1010", 'a'}, {"1011", 'b'},
+		{"1100", 'c'}, {"1101", 'd'}, {"1110", 'e'}, {"1111", 'f'}
+		};
+
+		char hex = hexMap[seq4];
+		hexadecimal += hex;
+	}
+	return hexadecimal;
 }

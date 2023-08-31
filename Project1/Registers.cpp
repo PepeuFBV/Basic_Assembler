@@ -7,218 +7,219 @@
 
 using namespace std;
 
-vector<string> RRL(string linha, unordered_map<string, int> labels, int nLinha, int tam) {
-	string rs, rt;
+vector<string> RRL(string linha, unordered_map<string, int> labels, int nLinha) {
+	string r1, r2, label;
 
 	size_t indiceInicio = linha.find('$'); //encontra indice de '$'
 	size_t indiceFim = linha.find(','); //encontra indice de ','
-	rs = linha.substr(indiceInicio + 1, indiceFim - 1);
-	if (rs[0] >= '0' && rs[0] <= '9') {
-		rs = decimalParaBin(stoi(rs),tam); //passa o registrador em formato decimal para o binário
+	r1 = linha.substr(indiceInicio + 1, indiceFim - 1);
+	if (r1[0] >= '0' && r1[0] <= '9') {
+		r1 = decimalParaBin(stoi(r1), 5); //passa o registrador em formato decimal para o binário
 	}
 	else {
-		rs = registradorParaBin(rs); //passa o registrador em formato string para o binário
+		r1 = registradorParaBin(r1, 5); //passa o registrador em formato string para o binário
 	}
 
 	linha = linha.substr(indiceFim + 1, linha.length()); //apaga o que já foi usado
 
 	indiceInicio = linha.find('$'); //encontra indice de '$'
 	indiceFim = linha.find(','); //encontra indice de ','
-	rt = linha.substr(indiceInicio + 1, indiceFim - 2);
-	if (rt[0] >= '0' && rt[0] <= '9') {
-		rt = decimalParaBin(stoi(rt)); //passa o registrador em formato decimal para o binário
+	r2 = linha.substr(indiceInicio + 1, indiceFim - 2);
+	if (r2[0] >= '0' && r2[0] <= '9') {
+		r2 = decimalParaBin(stoi(r2), 5); //passa o registrador em formato decimal para o binário
 	}
 	else {
-		rt = registradorParaBin(rt); //passa o registrador em formato string para o binário
+		r2 = registradorParaBin(r2, 5); //passa o registrador em formato string para o binário
 	}
 
 	linha = linha.substr(indiceFim + 1, linha.length()); //apaga o que já foi usado
 
 	indiceInicio = linha.find(' '); //encontra indice de ' '
-	string label = linha.substr(indiceInicio + 1, linha.length());
+	label = linha.substr(indiceInicio + 1, linha.length());
 	string enderecoLabel = decimalParaBin((labels[label] - 1) - nLinha, 16); //converte o endereço da label para binário 16 bits
 
-	vector<string> registradores = { rs, rt, enderecoLabel }; //retorna em um vector os binários dos registradores e da label
+	vector<string> registradores = { r1, r2, enderecoLabel }; //retorna em um vector os binários dos registradores e da label
 	return registradores;
 }
 
 vector<string> RRR(string linha) { //checar
-	string rs, rt, rd;
+	string r1, r2, r3;
 
 	size_t indiceInicio = linha.find('$'); //encontra indice de '$'
 	size_t indiceFim = linha.find(','); //encontra indice de ','
-	rs = linha.substr(indiceInicio + 1, indiceFim - 1);
-	if (rs[0] >= '0' && rs[0] <= '9') {
-		rs = decimalParaBin(stoi(rs)); //passa o registrador em formato decimal para o binário
+	r1 = linha.substr(indiceInicio + 1, indiceFim - 1);
+	if (r1[0] >= '0' && r1[0] <= '9') {
+		r1 = decimalParaBin(stoi(r1), 5); //passa o registrador em formato decimal para o binário
 	}
 	else {
-		rs = registradorParaBin(rs); //passa o registrador em formato string para o binário
+		r1 = registradorParaBin(r1, 5); //passa o registrador em formato string para o binário
 	}
 
 	linha = linha.substr(indiceFim + 1, linha.length()); //apaga o que já foi usado
 
 	indiceInicio = linha.find('$'); //encontra indice de '$'
 	indiceFim = linha.find(','); //encontra indice de ','
-	rt = linha.substr(indiceInicio + 1, indiceFim - 2);
-	if (rt[0] >= '0' && rt[0] <= '9') {
-		rt = decimalParaBin(stoi(rs)); //passa o registrador em formato decimal para o binário
+	r2 = linha.substr(indiceInicio + 1, indiceFim - 2);
+	if (r2[0] >= '0' && r2[0] <= '9') {
+		r2 = decimalParaBin(stoi(r2), 5); //passa o registrador em formato decimal para o binário
 	}
 	else {
-		rt = registradorParaBin(rt); //passa o registrador em formato string para o binário
+		r2 = registradorParaBin(r2, 5); //passa o registrador em formato string para o binário
 	}
 
 	linha = linha.substr(indiceFim + 1, linha.length()); //apaga o que já foi usado
 
 	indiceInicio = linha.find('$'); //encontra indice de '$'
 	indiceFim = linha.find(','); //encontra indice de ','
-	rd = linha.substr(indiceInicio + 1, indiceFim - 2);
-	if (rd[0] >= '0' && rd[0] <= '9') {
-		rd = decimalParaBin(stoi(rs)); //passa o registrador em formato decimal para o binário
+	r3 = linha.substr(indiceInicio + 1, indiceFim - 2);
+	if (r3[0] >= '0' && r3[0] <= '9') {
+		r3 = decimalParaBin(stoi(r3), 5); //passa o registrador em formato decimal para o binário
 	}
 	else {
-		rd = registradorParaBin(rt); //passa o registrador em formato string para o binário
+		r3 = registradorParaBin(r3, 5); //passa o registrador em formato string para o binário
 	}
 
-	vector<string> registradores = { rs, rt, rd }; //retorna em um vector os binários dos registradores
+	vector<string> registradores = { r1, r2, r3 }; //retorna em um vector os binários dos registradores
 	return registradores;
 }
 
 vector<string> RRI(string linha) {
-	string rs, rt, imediato;
+	string r1, r2, imediato;
 
 	size_t indiceInicio = linha.find('$'); //encontra indice de '$'
 	size_t indiceFim = linha.find(','); //encontra indice de ','
-	rs = linha.substr(indiceInicio + 1, indiceFim - 1);
-	if (rs[0] >= '0' && rs[0] <= '9') {
-		rs = decimalParaBin(stoi(rs)); //passa o registrador em formato decimal para o binário
+	r1 = linha.substr(indiceInicio + 1, indiceFim - 1);
+	if (r1[0] >= '0' && r1[0] <= '9') {
+		r1 = decimalParaBin(stoi(r1), 5); //passa o registrador em formato decimal para o binário
 	}
 	else {
-		rs = registradorParaBin(rs); //passa o registrador em formato string para o binário
+		r1 = registradorParaBin(r1, 5); //passa o registrador em formato string para o binário
 	}
 
 	linha = linha.substr(indiceFim + 1, linha.length()); //apaga o que já foi usado
 
 	indiceInicio = linha.find('$'); //encontra indice de '$'
 	indiceFim = linha.find(','); //encontra indice de ','
-	rt = linha.substr(indiceInicio + 1, indiceFim - 2);
-	if (rt[0] >= '0' && rt[0] <= '9') {
-		rt = decimalParaBin(stoi(rs)); //passa o registrador em formato decimal para o binário
+	r2 = linha.substr(indiceInicio + 1, indiceFim - 2);
+	if (r2[0] >= '0' && r2[0] <= '9') {
+		r2 = decimalParaBin(stoi(r2), 5); //passa o registrador em formato decimal para o binário
 	}
 	else {
-		rt = registradorParaBin(rt); //passa o registrador em formato string para o binário
+		r2 = registradorParaBin(r2, 5); //passa o registrador em formato string para o binário
 	}
 
 	linha = linha.substr(indiceFim + 1, linha.length()); //apaga o que já foi usado
 
 	indiceInicio = linha.find(' '); //encontra indice de ' '
 	imediato = linha.substr(indiceInicio + 1, linha.length());
-	imediato = decimalParaBin(stoi(imediato)); //passa o imediato em formato decimal para o binário
-	vector<string> registradores = { rs, rt, imediato }; //retorna em um vector os binários dos registradores e do imediato
+	imediato = decimalParaBin(stoi(imediato), 16); //passa o imediato em formato decimal para o binário
+	vector<string> registradores = { r1, r2, imediato }; //retorna em um vector os binários dos registradores e do imediato
 	return registradores;
 }
 
 vector<string> R(string linha) {
-	string rd;
+	string r;
 
 	size_t indiceInicio = linha.find('$'); //encontra indice de '$'
 	size_t indiceFim = linha.find(','); //encontra indice de ','
-	rd = linha.substr(indiceInicio + 1, indiceFim - 2);
-	if (rd[0] >= '0' && rd[0] <= '9') {
-		rd = decimalParaBin(stoi(rd)); //passa o registrador em formato decimal para o binário
+	r = linha.substr(indiceInicio + 1, indiceFim - 2);
+	if (r[0] >= '0' && r[0] <= '9') {
+		r = decimalParaBin(stoi(r), 5); //passa o registrador em formato decimal para o binário
 	}
 	else {
-		rd = registradorParaBin(rd); //passa o registrador em formato string para o binário
+		r = registradorParaBin(r, 5); //passa o registrador em formato string para o binário
 	}
 
-	vector<string> registradores = { rd }; //retorna em um vector o binário do registrador
+	vector<string> registradores = { r }; //retorna em um vector o binário do registrador
 	return registradores;
 }
 
 vector<string> RR(string linha) {
-	string rs, rt;
+	string r1, r2;
 
 	size_t indiceInicio = linha.find('$'); //encontra indice de '$'
 	size_t indiceFim = linha.find(','); //encontra indice de ','
-	rs = linha.substr(indiceInicio + 1, indiceFim - 1);
-	if (rs[0] >= '0' && rs[0] <= '9') {
-		rs = decimalParaBin(stoi(rs)); //passa o registrador em formato decimal para o binário
+	r1 = linha.substr(indiceInicio + 1, indiceFim - 1);
+	if (r1[0] >= '0' && r1[0] <= '9') {
+		r1 = decimalParaBin(stoi(r1), 5); //passa o registrador em formato decimal para o binário
 	}
 	else {
-		rs = registradorParaBin(rs); //passa o registrador em formato string para o binário
+		r1 = registradorParaBin(r1, 5); //passa o registrador em formato string para o binário
 	}
 
 	linha = linha.substr(indiceFim + 1, linha.length()); //apaga o que já foi usado
 
 	indiceInicio = linha.find('$'); //encontra indice de '$'
 	indiceFim = linha.find(','); //encontra indice de ','
-	rt = linha.substr(indiceInicio + 1, indiceFim - 2);
-	if (rt[0] >= '0' && rt[0] <= '9') {
-		rt = decimalParaBin(stoi(rt)); //passa o registrador em formato decimal para o binário
+	r2 = linha.substr(indiceInicio + 1, indiceFim - 2);
+	if (r2[0] >= '0' && r2[0] <= '9') {
+		r2 = decimalParaBin(stoi(r2), 5); //passa o registrador em formato decimal para o binário
 	}
 	else {
-		rt = registradorParaBin(rt); //passa o registrador em formato string para o binário
+		r2 = registradorParaBin(r2, 5); //passa o registrador em formato string para o binário
 	}
 
-	vector<string> registradores = { rs, rt }; //retorna em um vector os binários dos registradores
+	vector<string> registradores = { r1, r2 }; //retorna em um vector os binários dos registradores
 	return registradores;
 }
 
 vector<string> RI(string linha) {
-	string rt, imediato;
+	string r, imediato;
 
 	size_t indiceInicio = linha.find('$'); //encontra indice de '$'
 	size_t indiceFim = linha.find(','); //encontra indice de ','
-	rt = linha.substr(indiceInicio + 1, indiceFim - 2);
-	if (rt[0] >= '0' && rt[0] <= '9') {
-		rt = decimalParaBin(stoi(rt)); //passa o registrador em formato decimal para o binário
+	r = linha.substr(indiceInicio + 1, indiceFim - 2);
+	if (r[0] >= '0' && r[0] <= '9') {
+		r = decimalParaBin(stoi(r), 5); //passa o registrador em formato decimal para o binário
 	}
 	else {
-		rt = registradorParaBin(rt); //passa o registrador em formato string para o binário
+		r = registradorParaBin(r, 5); //passa o registrador em formato string para o binário
 	}
 
 	linha = linha.substr(indiceFim + 1, linha.length()); //apaga o que já foi usado
 
 	indiceInicio = linha.find(' '); //encontra indice de ' '
 	imediato = linha.substr(indiceInicio + 1, linha.length());
-	imediato = decimalParaBin(stoi(imediato)); //passa o imediato em formato decimal para o binário
+	imediato = decimalParaBin(stoi(imediato), 16); //passa o imediato em formato decimal para o binário
 
-	vector<string> registradores = { rt, imediato }; //retorna em um vector os binários dos registradores e do imediato
+	vector<string> registradores = { r, imediato }; //retorna em um vector os binários dos registradores e do imediato
 	return registradores;
 }
 
 vector<string> I(string linha) {
-	vector<string> registradores = { decimalParaBin(stoi(linha)) }; //retorna em um vector o binário do imediato
+	vector<string> registradores = { decimalParaBin(stoi(linha), 26) }; //retorna em um vector o binário do imediato
 	return registradores;
 }
 
 vector<string> RMI(string linha) { //servirá para lw e sw
-	string rt, multiplier, rs;
+	string r1, r2, multiplier;
 
 	size_t indiceInicio = linha.find('$'); //encontra indice de '$'
 	size_t indiceFim = linha.find(','); //encontra indice de ','
-	rt = linha.substr(indiceInicio + 1, indiceFim - 2);
-	if (rt[0] >= '0' && rt[0] <= '9') {
-		rt = decimalParaBin(stoi(rt)); //passa o registrador em formato decimal para o binário
+	r1 = linha.substr(indiceInicio + 1, indiceFim - 2);
+	if (r1[0] >= '0' && r1[0] <= '9') {
+		r1 = decimalParaBin(stoi(r1), 5); //passa o registrador em formato decimal para o binário
 	}
 	else {
-		rt = registradorParaBin(rt); //passa o registrador em formato string para o binário
+		r1 = registradorParaBin(r1, 5); //passa o registrador em formato string para o binário
 	}
 
 	linha = linha.substr(indiceFim + 1, linha.length()); //apaga o que já foi usado
 
 	multiplier = linha[0]; //pega o multiplier
+	multiplier = decimalParaBin(stoi(multiplier), 16); //passa o multiplier em formato decimal para o binário
 
 	linha = linha.substr(1, linha.length()); //apaga o que já foi usado
 
 	indiceInicio = linha.find('$'); //encontra indice de '$'
-	rs = linha.substr(indiceInicio + 1, linha.length()-1); //pega o registrador até o fim da string - 1 ( o ')' ) é removido
-	if (rs[0] >= '0' && rs[0] <= '9') {
-		rs = decimalParaBin(stoi(rs)); //passa o registrador em formato decimal para o binário
+	r2 = linha.substr(indiceInicio + 1, linha.length()-1); //pega o registrador até o fim da string - 1 ( o ')' ) é removido
+	if (r2[0] >= '0' && r2[0] <= '9') {
+		r2 = decimalParaBin(stoi(r2), 5); //passa o registrador em formato decimal para o binário
 	}
 	else {
-		rs = registradorParaBin(rs); //passa o registrador em formato string para o binário
+		r2 = registradorParaBin(r2, 5); //passa o registrador em formato string para o binário
 	}
 
-	vector<string> registradores = { rt, rs, multiplier }; //retorna em um vector os binários dos registradores e do imediato
+	vector<string> registradores = { r1, r2, multiplier }; //retorna em um vector os binários dos registradores e do imediato
 	return registradores;
 }
