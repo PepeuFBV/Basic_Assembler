@@ -8,13 +8,22 @@
 
 using namespace std;
 
-string add(string linhaAtual) {
-	
+//todo
+//adicionar as instruções restantes
 
-	return "000";
-} //consertar
+string sll(string linhaAtual) {
+	string opcode = decimalParaBin(0, 6);
+	vector<string> dados = RRI(linhaAtual, true);
+	string resultado = opcode + dados[1] + decimalParaBin(0, 5) + dados[0] + dados[2] + decimalParaBin(0, 6);
+	return resultado;
+}
 
-
+string srl(string linhaAtual) {
+	string opcode = decimalParaBin(0, 6);
+	vector<string> dados = RRI(linhaAtual, true);
+	string resultado = opcode + dados[1] + decimalParaBin(0, 5) + dados[0] + dados[2] + decimalParaBin(2, 6);
+	return resultado;
+}
 
 
 
@@ -22,7 +31,6 @@ string beq(string linha, unordered_map<string, int> labels, int nLinha) {
 	string opcode = decimalParaBin(4, 6);
 	vector<string> dados = RRL(linha, labels, nLinha);
 	string resultado = opcode + dados[0] + dados[1] + dados[2];
-
 	return resultado;
 }
 
@@ -35,42 +43,42 @@ string bne(string linha, unordered_map<string, int> labels, int nLinha) {
 
 string addi(string linha) {
 	string opcode = decimalParaBin(8, 6);
-	vector<string> dados = RRI(linha);
+	vector<string> dados = RRI(linha, false);
 	string resultado = opcode + dados[1] + dados[0] + dados[2];
 	return resultado;
 }
 
 string addiu(string linha) {
 	string opcode = decimalParaBin(9, 6);
-	vector<string> dados = RRI(linha);
+	vector<string> dados = RRI(linha, false);
 	string resultado = opcode + dados[1] + dados[0] + dados[2];
 	return resultado;
 }
 
 string slti(string linha) {
 	string opcode = decimalParaBin(10, 6);
-	vector<string> dados = RRI(linha);
+	vector<string> dados = RRI(linha, false);
 	string resultado = opcode + dados[1] + dados[0] + dados[2];
 	return resultado;
 }
 
 string sltiu(string linha) {
 	string opcode = decimalParaBin(11, 6);
-	vector<string> dados = RRI(linha);
+	vector<string> dados = RRI(linha, false);
 	string resultado = opcode + dados[1] + dados[0] + dados[2];
 	return resultado;
 }
 
 string andi(string linha) {
 	string opcode = decimalParaBin(12, 6);
-	vector<string> dados = RRI(linha);
+	vector<string> dados = RRI(linha, false);
 	string resultado = opcode + dados[1] + dados[0] + dados[2];
 	return resultado;
 }
 
 string ori(string linha) {
 	string opcode = decimalParaBin(13, 6);
-	vector<string> dados = RRI(linha);
+	vector<string> dados = RRI(linha, false);
 	string resultado = opcode + dados[1] + dados[0] + dados[2];
 	return resultado;
 }
@@ -97,15 +105,15 @@ string sw(string linha) {
 }
 
 string j(string linha, unordered_map<string, int> labels, int nLinha) {
-	string opcode = decimalParaBin(2, 6);
-	vector<string> dados = I(linha);
-	string resultado = opcode + dados[0];
+	string opcode = decimalParaBin(2, 6); const string comecoDoProgama = decimalParaBin(1, 6);
+	vector<string> dados = L(linha, labels, nLinha);
+	string resultado = opcode + comecoDoProgama + dados[0];
 	return resultado;
 }
 
 string jal(string linha, unordered_map<string, int> labels, int nLinha) {
 	string opcode = decimalParaBin(3, 6);
-	vector<string> dados = I(linha);
-	string resultado = opcode + dados[0];
+	vector<string> dados = L(linha, labels, nLinha);
+	string resultado = opcode + decimalParaBin(1, 6) + dados[0];
 	return resultado;
 }

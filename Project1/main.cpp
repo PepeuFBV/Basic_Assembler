@@ -7,13 +7,9 @@
 
 using namespace std;
 
-
-//DONE
-// commands.cpp - Familia do I e do J completas
-// 
-//possibilidade de correção para linhasSemLabel não terminarem em \n
-//checar se há diferença entre addi e addiu
-
+//TODO
+//terminar instructions
+//cheacar se a leitura das strings está correta
 
 int main() {
 
@@ -39,10 +35,10 @@ int main() {
 
     }
 
-    file.close(); //le o arquivo pela primeira vez pegando os labels
+    file.close(); //lê o arquivo pela primeira vez pegando os labels
 
     //criando o arquivo binário
-    cout << "Qual o nome do seu projeto?";
+    cout << "Qual o nome do seu projeto? ";
     string nomeProjeto;
     cin >> nomeProjeto;
     ofstream bin(nomeProjeto + ".bin"); //cria um arquivo binário com o nome do projeto
@@ -56,25 +52,27 @@ int main() {
         return 1;
     }
 
-    char tabulacao = '\t'; nLinha = 0;
+    nLinha = 0;
     while (getline(file, linhaAtual)) { //loop que lê de linha em linha
 
         size_t indice = linhaAtual.find(':'); //encontra indice de ':'
         if (indice != string::npos) { //verifica se ':' foi encontrado, se não, apenas seguir lendo as linhas
-            //cria uma nova substring cortando a partir do fim do label até o final da string completa
-            linhaAtual = linhaAtual.substr(indice + 2, linhaAtual.length());
+            //apaga a parte do label da linha atual
+            linhaAtual = linhaAtual.erase(0, indice+1);
         }
-        //remove as ocorrencias de '/t'
-        linhaAtual.erase(remove(linhaAtual.begin(), linhaAtual.end(), tabulacao), linhaAtual.end());
+        
+
+        while (linhaAtual.find('\t') != string::npos) { //enquanto houver tabulação na linha
+			linhaAtual.erase(linhaAtual.find('\t'), 1); //remove o '\t' da linha atual
+		}
+        while (linhaAtual[0] == ' ') { //enquanto houver espaço no início da linha)
+            linhaAtual.erase(0, 1); //remove o espaço do início da linha atual
+        }
 
 
-        indice = linhaAtual.find(' '); //encontra indice de ' '    
+        indice = linhaAtual.find(' '); //encontra indice de ' ', pois a string está como "comando regis1, regis2..."   
         string comando = linhaAtual.substr(0, indice); //obtem apenas o comando da linha atual
-
-
-        indice = comando.size() + 1; //indice recebe o tamanho do comando + 1 para pular o espaço
-        string linhaSemComando = linhaAtual.substr(indice, linhaAtual.length());
-        //cria uma nova substring cortando a partir do fim do comando até o final da string completa
+        string linhaSemComando = linhaAtual.substr(indice + 1, linhaAtual.length()); //nova substring cortando a partir do fim do comando até o final da string completa
   
 
         //comparando o comando atual com os possíveis comandos para chamar respectivas funções
@@ -84,13 +82,8 @@ int main() {
 
         bin << binario << '\n';
         hex << hexadecimal;
-        if ((nLinha+1) % 4 == 0) {
-            hex << endl;
-        }
-        else {
-            hex << " ";
-        }
-        
+        if ((nLinha+1) % 4 == 0) hex << endl;//pular linha no hexa a cada 4
+        else hex << " ";       
         
         nLinha++;
     }

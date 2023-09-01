@@ -83,7 +83,7 @@ vector<string> RRR(string linha) { //checar
 	return registradores;
 }
 
-vector<string> RRI(string linha) {
+vector<string> RRI(string linha, bool isRfamily) {
 	string r1, r2, imediato;
 
 	size_t indiceInicio = linha.find('$'); //encontra indice de '$'
@@ -112,7 +112,10 @@ vector<string> RRI(string linha) {
 
 	indiceInicio = linha.find(' '); //encontra indice de ' '
 	imediato = linha.substr(indiceInicio + 1, linha.length());
-	imediato = decimalParaBin(stoi(imediato), 16); //passa o imediato em formato decimal para o binário
+
+	if (isRfamily) imediato = decimalParaBin(stoi(imediato), 5); //passa o imediato em formato decimal para o binário
+	else imediato = decimalParaBin(stoi(imediato), 16); //passa o imediato em formato decimal para o binário
+
 	vector<string> registradores = { r1, r2, imediato }; //retorna em um vector os binários dos registradores e do imediato
 	return registradores;
 }
@@ -221,5 +224,18 @@ vector<string> RMI(string linha) { //servirá para lw e sw
 	}
 
 	vector<string> registradores = { r1, r2, multiplier }; //retorna em um vector os binários dos registradores e do imediato
+	return registradores;
+}
+
+vector<string> L(string linha, unordered_map<string, int> labels, int nLinha) {
+	string label;
+	
+	label = linha.substr(0, linha.length()); //pega a label
+
+	//precisamos de pegar em binário ambos e fazer um OR (com strings n funciona
+	string enderecoLabel = decimalParaBin(labels[label] - 1, 26); //converte o endereço da label para binário 16 bits
+	enderecoLabel[11] = '1'; //coloca o bit do começo do programa como 1
+
+	vector<string> registradores = { enderecoLabel }; //retorna em um vector os binários dos registradores e da label
 	return registradores;
 }
