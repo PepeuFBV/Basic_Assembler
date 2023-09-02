@@ -6,6 +6,9 @@ using namespace std;
 typedef string(*ptrFunc)(string);
 typedef string(*ptrFuncComLabel)(string, unordered_map<string, int>, int);
 
+unordered_map<string, ptrFunc> declarandoMaps(void);
+unordered_map<string, ptrFuncComLabel> declarandoMaps2(void);
+
 string sll(string linhaAtual);
 string srl(string linhaAtual);
 string jr(string linhaAtual);

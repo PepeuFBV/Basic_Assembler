@@ -234,7 +234,7 @@ vector<string> L(string linha, unordered_map<string, int> labels, int nLinha) {
 
 	//precisamos de pegar em binário ambos e fazer um OR (com strings n funciona
 	string enderecoLabel = decimalParaBin(labels[label] - 1, 26); //converte o endereço da label para binário 16 bits
-	enderecoLabel[11] = '1'; //coloca o bit do começo do programa como 1
+	enderecoLabel[11] = '1'; //coloca o bit do começo do programa como 4 milhões
 
 	vector<string> registradores = { enderecoLabel }; //retorna em um vector os binários dos registradores e da label
 	return registradores;

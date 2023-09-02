@@ -8,8 +8,8 @@
 using namespace std;
 
 //TODO
-//terminar instructions
-//cheacar se a leitura das strings está correta
+//verificar de deve adicionar o 4 milhões em j e jal
+//verificar se saida de hexadecimal está correta
 
 int main() {
 
@@ -74,7 +74,7 @@ int main() {
         string comando = linhaAtual.substr(0, indice); //obtem apenas o comando da linha atual
         string linhaSemComando = linhaAtual.substr(indice + 1, linhaAtual.length()); //nova substring cortando a partir do fim do comando até o final da string completa
   
-
+        
         //comparando o comando atual com os possíveis comandos para chamar respectivas funções
         string binario, hexadecimal;
         binario = comandoAtual(linhaSemComando, comando, labels, nLinha);

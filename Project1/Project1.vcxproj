@@ -128,7 +128,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Commands.cpp" />
-    <ClCompile Include="FunctionMaps.cpp" />
     <ClCompile Include="Intructions.cpp" />
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -139,7 +138,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Commands.h" />
-    <ClInclude Include="FunctionMaps.h" />
     <ClInclude Include="Instructions.h" />
     <ClInclude Include="Converter.h" />
     <ClInclude Include="Registers.h" />

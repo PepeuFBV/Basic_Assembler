@@ -151,11 +151,11 @@ string registradorParaBin(string registrador, int tam) {
 }
 
 string binarioParaHexadecimal(string binario) { //tam = 32 caracteres //salvar da esquerda para direita
-	string hexadecimal; char bin[4];
+	string hexadecimal, bin;
 
-	//pegar os 4 salvar em bin[4] para converter para hexadecimal
+	for (int k = 0; k < binario.length(); k += 4) {
+		bin = binario.substr(k, 4);
 
-	for (int i = 0; i < 8; i++) { //serão 8 caracteres hexadecimais
 		map<string, char> hexMap = { //as traduções possiveis
 		{"0000", '0'}, {"0001", '1'}, {"0010", '2'}, {"0011", '3'},
 		{"0100", '4'}, {"0101", '5'}, {"0110", '6'}, {"0111", '7'},
