@@ -59,19 +59,15 @@ unordered_map<string, ptrFuncComLabel> declarandoMaps2(void) {
 
 string sll(string linhaAtual) {
 	string opcode = decimalParaBin(0, 6);
-	string function = decimalParaBin(0, 6);
-	string rt = decimalParaBin(0, 5);
 	vector<string> dados = RRI(linhaAtual, true);
-	string resultado = opcode + dados[1] + rt + dados[0] + dados[2] + function;
+	string resultado = opcode + decimalParaBin(0,5) + dados[1] + dados[0] + dados[2] + decimalParaBin(0,6);
 	return resultado;
 }
 
 string srl(string linhaAtual) {
 	string opcode = decimalParaBin(0, 6);
-	string function = decimalParaBin(2, 6);
-	string rt = decimalParaBin(0, 5);
 	vector<string> dados = RRI(linhaAtual, true);
-	string resultado = opcode + dados[1] + rt + dados[0] + dados[2] + function;
+	string resultado = opcode + decimalParaBin(0, 5) + dados[1] + dados[0] + dados[2] + decimalParaBin(2, 6);
 	return resultado;
 }
 

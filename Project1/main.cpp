@@ -7,10 +7,6 @@
 
 using namespace std;
 
-//TODO
-//verificar de deve adicionar o 4 milhões em j e jal
-//verificar se saida de hexadecimal está correta
-
 int main() {
 
     string operacao;
@@ -88,8 +84,7 @@ int main() {
         nLinha++;
     }
 
-
-
+    cout << "Arquivos " << nomeProjeto << ".bin e " << nomeProjeto << ".hex foram criados com sucesso!\n";
     file.close();
     bin.close();
     hex.close();
