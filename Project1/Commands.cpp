@@ -9,8 +9,7 @@ using namespace std;
 string comandoAtual(string linhaSemComando, string comando, unordered_map<string, int> labels, int nLinha) {
     string binario; bool usesLabel;
 
-    //erro está aqui
-    if (comando.compare("beq") == 0 || comando.compare("bnq") == 0 || comando.compare("j") == 0 || comando.compare("jal") == 0) {
+    if (comando.compare("beq") == 0 || comando.compare("bne") == 0 || comando.compare("j") == 0 || comando.compare("jal") == 0) {
         usesLabel = true;
     }
     else {

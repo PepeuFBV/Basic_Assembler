@@ -125,7 +125,7 @@ vector<string> R(string linha) {
 
 	size_t indiceInicio = linha.find('$'); //encontra indice de '$'
 	size_t indiceFim = linha.find(','); //encontra indice de ','
-	r = linha.substr(indiceInicio + 1, indiceFim - 2);
+	r = linha.substr(indiceInicio + 1, indiceFim - 1);
 	if (r[0] >= '0' && r[0] <= '9') {
 		r = decimalParaBin(stoi(r), 5); //passa o registrador em formato decimal para o binário
 	}
@@ -171,7 +171,7 @@ vector<string> RI(string linha) {
 
 	size_t indiceInicio = linha.find('$'); //encontra indice de '$'
 	size_t indiceFim = linha.find(','); //encontra indice de ','
-	r = linha.substr(indiceInicio + 1, indiceFim - 2);
+	r = linha.substr(indiceInicio + 1, indiceFim - 1);
 	if (r[0] >= '0' && r[0] <= '9') {
 		r = decimalParaBin(stoi(r), 5); //passa o registrador em formato decimal para o binário
 	}
@@ -199,7 +199,7 @@ vector<string> RMI(string linha) { //servirá para lw e sw
 
 	size_t indiceInicio = linha.find('$'); //encontra indice de '$'
 	size_t indiceFim = linha.find(','); //encontra indice de ','
-	r1 = linha.substr(indiceInicio + 1, indiceFim - 2);
+	r1 = linha.substr(indiceInicio + 1, indiceFim - 1);
 	if (r1[0] >= '0' && r1[0] <= '9') {
 		r1 = decimalParaBin(stoi(r1), 5); //passa o registrador em formato decimal para o binário
 	}
@@ -209,13 +209,18 @@ vector<string> RMI(string linha) { //servirá para lw e sw
 
 	linha = linha.substr(indiceFim + 1, linha.length()); //apaga o que já foi usado
 
-	multiplier = linha[0]; //pega o multiplier
+	//Apagar todos os espaços da string
+	linha.erase(remove(linha.begin(), linha.end(), ' '), linha.end());
+	
+	indiceFim = linha.find('(');
+	multiplier = linha.substr(0, indiceFim);
+
 	multiplier = decimalParaBin(stoi(multiplier), 16); //passa o multiplier em formato decimal para o binário
 
-	linha = linha.substr(1, linha.length()); //apaga o que já foi usado
-
-	indiceInicio = linha.find('$'); //encontra indice de '$'
-	r2 = linha.substr(indiceInicio + 1, linha.length()-1); //pega o registrador até o fim da string - 1 ( o ')' ) é removido
+	size_t inicioMultiplier = linha.find('(') + 1; //encontra indice de '('
+	size_t fimMultiplier = linha.find(')'); //encontra indice de ')'
+	r2 = linha.substr(inicioMultiplier, fimMultiplier - inicioMultiplier); //pega o registrador nos parenteses
+	r2 = r2.erase(0, 1); //apaga o '$'
 	if (r2[0] >= '0' && r2[0] <= '9') {
 		r2 = decimalParaBin(stoi(r2), 5); //passa o registrador em formato decimal para o binário
 	}

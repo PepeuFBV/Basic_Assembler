@@ -88,6 +88,8 @@ int main() {
         nLinha++;
     }
 
+
+
     file.close();
     bin.close();
     hex.close();

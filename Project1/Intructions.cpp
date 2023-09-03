@@ -61,7 +61,7 @@ string sll(string linhaAtual) {
 	string opcode = decimalParaBin(0, 6);
 	string function = decimalParaBin(0, 6);
 	string rt = decimalParaBin(0, 5);
-	vector<string> dados = R(linhaAtual);
+	vector<string> dados = RRI(linhaAtual, true);
 	string resultado = opcode + dados[1] + rt + dados[0] + dados[2] + function;
 	return resultado;
 }
@@ -70,7 +70,7 @@ string srl(string linhaAtual) {
 	string opcode = decimalParaBin(0, 6);
 	string function = decimalParaBin(2, 6);
 	string rt = decimalParaBin(0, 5);
-	vector<string> dados = R(linhaAtual);
+	vector<string> dados = RRI(linhaAtual, true);
 	string resultado = opcode + dados[1] + rt + dados[0] + dados[2] + function;
 	return resultado;
 }
@@ -318,6 +318,6 @@ string j(string linha, unordered_map<string, int> labels, int nLinha) {
 string jal(string linha, unordered_map<string, int> labels, int nLinha) {
 	string opcode = decimalParaBin(3, 6);
 	vector<string> dados = L(linha, labels, nLinha);
-	string resultado = opcode + decimalParaBin(1, 6) + dados[0];
+	string resultado = opcode + dados[0];
 	return resultado;
 }

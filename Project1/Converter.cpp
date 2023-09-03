@@ -153,14 +153,14 @@ string registradorParaBin(string registrador, int tam) {
 string binarioParaHexadecimal(string binario) { //tam = 32 caracteres //salvar da esquerda para direita
 	string hexadecimal, bin;
 
-	for (int k = 0; k < binario.length(); k += 4) {
+	for (int k = 0; k < 31; k += 4) { //separa o binario em grupos de 4 caracteres (de 0-31)
 		bin = binario.substr(k, 4);
 
 		map<string, char> hexMap = { //as traduções possiveis
 		{"0000", '0'}, {"0001", '1'}, {"0010", '2'}, {"0011", '3'},
 		{"0100", '4'}, {"0101", '5'}, {"0110", '6'}, {"0111", '7'},
-		{"1000", '8'}, {"1001", '9'}, {"1010", 'a'}, {"1011", 'b'},
-		{"1100", 'c'}, {"1101", 'd'}, {"1110", 'e'}, {"1111", 'f'}
+		{"1000", '8'}, {"1001", '9'}, {"1010", 'A'}, {"1011", 'B'},
+		{"1100", 'D'}, {"1101", 'D'}, {"1110", 'E'}, {"1111", 'F'}
 		};
 
 		char hex = hexMap[bin];
@@ -168,7 +168,7 @@ string binarioParaHexadecimal(string binario) { //tam = 32 caracteres //salvar d
 		hexadecimal += hex;
 	}
 
-	while (hexadecimal.length() < 8) { //se o hexadecimal não tiver 8 caracteres, adiciona 0 no inicio
+	while (hexadecimal.length() < 8) { //se o hexadecimal não tiver 8 caracteres, adiciona 0's no inicio
 		hexadecimal.insert(0, "0");
 	}
 
