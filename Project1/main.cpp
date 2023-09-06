@@ -10,7 +10,10 @@ using namespace std;
 int main() {
 
     string operacao;
-    ifstream file("entrada.asm");
+    cout << "Qual o nome do seu projeto? ";
+    string nomeProjeto;
+    cin >> nomeProjeto;
+    ifstream file(nomeProjeto + ".asm");
     if (!file.is_open() && !file.bad()) {
         cerr << "Arquivo não pode ser aberto\n"; //exibe a mensagem de erro
         return 1;
@@ -34,15 +37,12 @@ int main() {
     file.close(); //lê o arquivo pela primeira vez pegando os labels
 
     //criando o arquivo binário
-    cout << "Qual o nome do seu projeto? ";
-    string nomeProjeto;
-    cin >> nomeProjeto;
     ofstream bin(nomeProjeto + ".bin"); //cria um arquivo binário com o nome do projeto
     ofstream hex(nomeProjeto + ".hex"); //cria um arquivo hexadecimal com o nome do projeto
     hex << "v2.0 raw" << '\n';
 
 
-    file.open("entrada.asm"); //abre o arquivo pela segunda vez para ai realmente transformar em binário
+    file.open(nomeProjeto + ".asm"); //abre o arquivo pela segunda vez para ai realmente transformar em binário
     if (!file.is_open() && !file.bad()) {
         cerr << "Arquivo não pode ser aberto\n"; //exibe a mensagem de erro
         return 1;
