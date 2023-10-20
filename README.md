@@ -3,6 +3,8 @@ Project for the development of an assembler in the C++ language, the assembler r
 
 Obs. Not all commands are accepted
 
-Group:
+---
+### Group:
+
 - Pedro Figueira
 - Erick Patrick
